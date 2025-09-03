@@ -22,7 +22,7 @@ singularity/
 ├── Singularity-recipes/        # Singularity definition files
 │   ├── R-tidyverse/
 │   │   └── Singularity
-├── README.md                   # Project documentation
+└── README.md                   # Project documentation
       
 ```
 
