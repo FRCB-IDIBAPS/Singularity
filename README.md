@@ -22,8 +22,8 @@ singularity/
 ├── Singularity-recipes/        # Singularity definition files
 │   ├── R-tidyverse/
 │   │   └── Singularity
+│   └── ...
 └── README.md                   # Project documentation
-      
 ```
 
 ---
@@ -73,7 +73,7 @@ sudo apptainer build my-image.img Singularity
 
 - Keep Dockerfiles modular (one environment per file).  
 - Always pin library versions in `requirements.txt` for reproducibility.  
-- Test Docker images locally before converting to Singularity.  
+- [Optional] Test Docker images locally before converting to Singularity.  
 
 ---
 
@@ -88,7 +88,3 @@ sudo apptainer build my-image.img Singularity
 4. Submit a merge request  
 
 ---
-
-## 📄 License
-
-This project is licensed under [MIT License](LICENSE) (or your preferred license).  
