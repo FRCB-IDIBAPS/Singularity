@@ -55,7 +55,7 @@ cd Singularity-recipes/[img-name]/
 sudo apptainer build my-image.img Singularity
 ```
 
-#### 3. Run Container on HPC
+### 3. Run Container on HPC
 ```bash
 # In the HPC environment
 singularity exec my-image.[sif/img] python myscript.py
