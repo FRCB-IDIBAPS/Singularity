@@ -1,0 +1,12 @@
+scanpy
+pandas
+numpy
+seaborn
+matplotlib
+gseapy
+celltypist
+scikit-learn
+scipy
+ipython
+joblib
+jinja2
