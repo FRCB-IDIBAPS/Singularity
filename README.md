@@ -11,30 +11,34 @@ The workflow allows you to:
 
 ## 📂 Repository Structure
 ```
-singularity-project/
+singularity/
 │
-├── Dockerfiles/           # Directory with all Dockerfiles for different environments
-│   ├── scanpy.Dockerfile
-│   ├── base.Dockerfile
+├── Dockerfiles/                # Directory with all Dockerfiles for different environments
+│   ├── scanpy/
+│   │   ├── scanpy.Dockerfile
+│   │   └── requirements.txt    # Example: Python dependencies if needed
 │   └── ...
 │
-├── Singularity-recipes/   # Optional: Singularity definition files if needed
-│
-├── README.md              # Project documentation
-└── requirements.txt       # Example: Python dependencies if needed
+├── Singularity-recipes/        # Singularity definition files
+│   ├── R-tidyverse/
+│   │   └── Singularity
+├── README.md                   # Project documentation
+      
 ```
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Build Docker Image
+### 1. Generating images from Dockerfile
+#### 1.1. Build Docker Image
 Inside the project folder, choose the Dockerfile you want and run:
 ```bash
-docker build -t my-image -f dockerfiles/scanpy.Dockerfile .
+cd Dockerfiles/[env-name]/
+docker build -t my-image -f scanpy.Dockerfile .
 ```
 
-### 2. Convert Docker Image to Singularity Image
+#### 1.2. Convert Docker Image to Singularity Image
 Use `singularity build` to convert:
 ```bash
 singularity build my-image.sif docker-daemon://my-image:latest
@@ -42,11 +46,20 @@ singularity build my-image.sif docker-daemon://my-image:latest
 - `my-image.sif` → final Singularity image  
 - `my-image:latest` → Docker image tag  
 
-### 3. Run Container on HPC
+#### 1.3. Run Container on HPC
 ```bash
+# In the HPC environment
 singularity exec my-image.sif python myscript.py
 ```
 ---
+
+### 2. Generating images from Singularity definition files
+#### 2.1. Build Singularity Image
+Inside the project folder, choose the Dockerfile you want and run:
+```bash
+cd Singularity-recipes/[img-name]/
+sudo apptainer build my-image.img Singularity
+```
 
 ## 🛠 Requirements
 
