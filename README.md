@@ -23,6 +23,7 @@ singularity/
 │   ├── R-tidyverse/
 │   │   └── Singularity
 │   └── ...
+│
 └── README.md                   # Project documentation
 ```
 
@@ -46,13 +47,6 @@ singularity build my-image.sif docker-daemon://my-image:latest
 - `my-image.sif` → final Singularity image  
 - `my-image:latest` → Docker image tag  
 
-#### 1.3. Run Container on HPC
-```bash
-# In the HPC environment
-singularity exec my-image.sif python myscript.py
-```
----
-
 ### 2. Generating images from Singularity definition files
 #### 2.1. Build Singularity Image
 Inside the project folder, choose the Dockerfile you want and run:
@@ -60,6 +54,14 @@ Inside the project folder, choose the Dockerfile you want and run:
 cd Singularity-recipes/[img-name]/
 sudo apptainer build my-image.img Singularity
 ```
+
+#### 3. Run Container on HPC
+```bash
+# In the HPC environment
+singularity exec my-image.[sif/img] python myscript.py
+```
+
+---
 
 ## 🛠 Requirements
 
