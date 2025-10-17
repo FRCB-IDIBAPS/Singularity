@@ -39,13 +39,18 @@ cd Dockerfiles/[env-name]/
 docker build -t my-image -f scanpy.Dockerfile .
 ```
 
-#### 1.2. Convert Docker Image to Singularity Image
+#### 1.2. Generate Docker .tar object from image
+```bash
+docker image save my-image:latest -o my-image.tar
+```
+
+#### 1.3. Convert Docker .tar image to Singularity container
 Use `singularity build` to convert:
 ```bash
-singularity build my-image.sif docker-daemon://my-image:latest
+singularity build my-image.sif docker-archive:my-image.tar
 ```
 - `my-image.sif` → final Singularity image  
-- `my-image:latest` → Docker image tag  
+- `my-image.tar` → Docker image tag  
 
 ### 2. Generating images from Singularity definition files
 #### 2.1. Build Singularity Image
