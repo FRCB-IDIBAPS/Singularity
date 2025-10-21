@@ -1,5 +1,5 @@
 # Use Python 3.10 slim image
-FROM python:3.9.23-bookworm
+FROM python:3.9.24-slim-bookworm
 
 # Environment variables for Python
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -27,6 +27,7 @@ COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir git+https://github.com/sfortma2/scranPY.git
 
 # Default command
 CMD ["python3"]

@@ -1,5 +1,5 @@
 # Use a base image with Python
-FROM python:3.9.23-bookworm
+FROM python:3.9-slim-bookworm
 
 # Avoid writing .pyc files + force flush stdout
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -21,9 +21,29 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     r-base-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install R packages via Rscript
-RUN Rscript -e "install.packages(c('BiocManager'), repos='https://cloud.r-project.org')" && \
-    Rscript -e "BiocManager::install(c('scran', 'scater', 'SingleCellExperiment', 'BiocParallel'), ask=FALSE)"
+# -------------------------------
+# Install R dependencies and system libs
+# -------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcairo2-dev \
+    libxt-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libtiff-dev \
+    libfreetype6-dev \
+    libfontconfig1-dev\
+    libharfbuzz-dev \
+    libfribidi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install R + Bioconductor packages
+RUN Rscript -e "install.packages(c('BiocManager','Matrix'), repos='https://cloud.r-project.org', lib='/usr/local/lib/R/site-library')" && \
+    Rscript -e "BiocManager::install(c('scran','scater','SingleCellExperiment','BiocParallel','scuttle'), ask=FALSE, update=TRUE, lib='/usr/local/lib/R/site-library')" && \
+    Rscript -e "cat('Installed packages:', installed.packages()[,'Package'])" && \
+    Rscript -e "options(warn=2); library(scran); library(scater); library(SingleCellExperiment); library(BiocParallel)"
+
+   
+RUN echo '.libPaths("/usr/local/lib/R/site-library")' >> /usr/lib/R/etc/Rprofile.site
 
 # Set working directory
 WORKDIR /app

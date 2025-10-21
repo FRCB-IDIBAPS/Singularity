@@ -12,3 +12,4 @@ joblib
 jinja2
 rnanorm
 pyGeno
+cvxpy
